@@ -2,7 +2,7 @@ data "vsphere_datacenter" "moje_datacenter" {
   name = "BSB"
   }
 
-
+##test
 variable "hosts" {
   default = ["esxi2.aido.local","esxi3.aido.local"]
     type = "list"
