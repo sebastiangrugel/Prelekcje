@@ -1,37 +1,4 @@
-// Pobranie informacji o istniejącym datacenter z vCenter. Referencja: https://www.terraform.io/docs/providers/vsphere/d/datacenter.html
-data "vsphere_datacenter" "primary-datacenter" {
-  name = "BSB"
-  }
 
-data "vsphere_compute_cluster" "compute_cluster" {
-  name          = "Management"
-  datacenter_id = "${data.vsphere_datacenter.primary-datacenter.id}"
-}
-
-// Pobranie informacji o istniejącym hoscie przykad 1:1 z https://www.terraform.io/docs/providers/vsphere/d/host.html. Mona deklarować także grupę hostów przykład: https://github.com/sebastiangrugel/terraform/blob/master/Learning/vsphere_example1/modules/vsphere_resources.tf
-  data "vsphere_host" "host" {
-  name          = "esxi1.aido.local"
-  datacenter_id = "${data.vsphere_datacenter.primary-datacenter.id}"
-}
-
-
-// Deklaracja istniejącego już datastore
-data "vsphere_datastore" "datastore-large" {
-  name          = "LocalDatastore1"
-  datacenter_id = "${data.vsphere_datacenter.primary-datacenter.id}"
-}
-
-
-// Deklaracja istniejącego już datastore z ESXi2
-data "vsphere_datastore" "datastore-large2" {
-  name          = "LocalDatastore2"
-  datacenter_id = "${data.vsphere_datacenter.primary-datacenter.id}"
-}
-
-data "vsphere_network" "siec" {
-  name          = "VM Network"
-  datacenter_id = "${data.vsphere_datacenter.primary-datacenter.id}"
-}
 
 /*
 resource "vsphere_host" "host_esx02" {
@@ -43,15 +10,17 @@ resource "vsphere_host" "host_esx02" {
 }
 */
 
-
 resource "vsphere_virtual_machine" "vm" {
   name             = "AiDO-pustaMaszyna${count.index + 1}"
-  resource_pool_id = "${data.vsphere_compute_cluster.compute_cluster.resource_pool_id}" # lokalizacja w klastrze poza resource pool
-  datastore_id     = "${data.vsphere_datastore.datastore-large2.id}"
+  #resource_pool_id = "${data.vsphere_compute_cluster.compute_cluster.resource_pool_id}" # lokalizacja w klastrze poza resource pool, klaster BSB
+  #datastore_id     = "${data.vsphere_datastore.datastore-large1.id}"  #host w klastrze BSB
+resource_pool_id = "${vsphere_compute_cluster.compute_cluster_t.resource_pool_id}"
+datastore_id     = "${data.vsphere_datastore.datastore-large2.id}"
+
   num_cpus = 2
   memory   = 256
   guest_id = "other3xLinux64Guest"
-  count = 1
+  count = 2
     wait_for_guest_ip_timeout = 0
   wait_for_guest_net_timeout = 0
     network_interface {
@@ -62,8 +31,6 @@ resource "vsphere_virtual_machine" "vm" {
     size  = 5
   }
 }
-
-
 
 // ############################# TWORZENIE MASZYN WIRTUALNYCH Z TEMPLATE ###############################
 
@@ -77,7 +44,7 @@ datacenter_id = "${data.vsphere_datacenter.primary-datacenter.id}"
 resource "vsphere_virtual_machine" "vm_template" {
 count = 1
 name             = "VM-template_${count.index + 1}"
-resource_pool_id = "${data.vsphere_compute_cluster.compute_cluster.resource_pool_id}"
+resource_pool_id = "${vsphere_compute_cluster.compute_cluster_t.resource_pool_id}"
 datastore_id     = "${data.vsphere_datastore.datastore-large2.id}"
 
 num_cpus = 2
@@ -113,7 +80,7 @@ customize {
              }
 
          network_interface {
-        ipv4_address = "192.168.5.51"
+        ipv4_address = "192.168.5.52"
         #ipv4_address = "${var.vm_mgt_ip}"
         ipv4_netmask = 24
       }     
