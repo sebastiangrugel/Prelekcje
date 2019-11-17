@@ -17,3 +17,8 @@ variable "vc_max_retry_timeout" {
 variable "vc_vsphere_server" {
   description = "vCenter FQDN"
 }
+
+variable "esxi_password" {
+  description = "Password to ESXi"
+  
+}

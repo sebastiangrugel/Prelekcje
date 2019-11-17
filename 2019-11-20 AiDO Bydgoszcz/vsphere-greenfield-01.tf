@@ -6,20 +6,21 @@ variable "hosts" {
 resource "vsphere_host" "host_esx02" {
   hostname = "esxi2.aido.local"
   username = "root"
-  password = "${esxi_password}"
+  password = "${var.esxi_password}"
   datacenter = "${data.vsphere_datacenter.moje_datacenter_dla_hostow.id}"
   maintenance = false
- depends_on = ["data.vsphere_datacenter.moje_datacenter_dla_hostow"]
-
+ #depends_on = ["data.vsphere_datacenter.moje_datacenter_dla_hostow"]
+depends_on = ["vsphere_datacenter.moje_datacenter"]
 }
 
 resource "vsphere_host" "host_esx03" {
   hostname = "esxi3.aido.local"
   username = "root"
-  password = "${esxi_password}"
+  password = "${var.esxi_password}"
   datacenter = "${data.vsphere_datacenter.moje_datacenter_dla_hostow.id}"
   maintenance = false
-depends_on = ["data.vsphere_datacenter.moje_datacenter_dla_hostow"]
+#depends_on = ["data.vsphere_datacenter.moje_datacenter_dla_hostow"]
+depends_on = ["vsphere_datacenter.moje_datacenter"]
 }
 
 
@@ -34,4 +35,5 @@ resource "vsphere_compute_cluster" "compute_cluster_t" {
   drs_automation_level = "fullyAutomated"
   ha_enabled = false
   force_evacuate_on_destroy = true
+  depends_on = ["vsphere_datacenter.moje_datacenter"]
 }

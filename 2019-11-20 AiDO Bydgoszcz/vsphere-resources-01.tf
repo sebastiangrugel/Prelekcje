@@ -1,15 +1,4 @@
 
-
-/*
-resource "vsphere_host" "host_esx02" {
-  hostname = "esxi2.aido.local"
-  username = "root"
-  password = "soY!2zsdIU"
-  datacenter =  "${data.vsphere_datacenter.primary-datacenter.id}"
-  maintenance = false
-}
-*/
-
 resource "vsphere_virtual_machine" "vm" {
   name             = "AiDO-pustaMaszyna${count.index + 1}"
   #resource_pool_id = "${data.vsphere_compute_cluster.compute_cluster.resource_pool_id}" # lokalizacja w klastrze poza resource pool, klaster BSB
@@ -41,8 +30,9 @@ name = "centos7.7-template"
 datacenter_id = "${data.vsphere_datacenter.primary-datacenter.id}"
 }
 
+
 resource "vsphere_virtual_machine" "vm_template" {
-count = 1
+count = 0
 name             = "VM-template_${count.index + 1}"
 resource_pool_id = "${vsphere_compute_cluster.compute_cluster_t.resource_pool_id}"
 datastore_id     = "${data.vsphere_datastore.datastore-large2.id}"
@@ -93,4 +83,7 @@ customize {
 }
 wait_for_guest_ip_timeout = 0
 wait_for_guest_net_timeout = 0
+#shutdown_wait_timeout = 0
+#force_power_off = true
+depends_on = ["vsphere_datacenter.moje_datacenter"]
 }
