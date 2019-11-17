@@ -6,7 +6,7 @@ variable "hosts" {
 resource "vsphere_host" "host_esx02" {
   hostname = "esxi2.aido.local"
   username = "root"
-  password = "soY!2zsdIU"
+  password = "${esxi_password}"
   datacenter = "${data.vsphere_datacenter.moje_datacenter_dla_hostow.id}"
   maintenance = false
  depends_on = ["data.vsphere_datacenter.moje_datacenter_dla_hostow"]
@@ -16,7 +16,7 @@ resource "vsphere_host" "host_esx02" {
 resource "vsphere_host" "host_esx03" {
   hostname = "esxi3.aido.local"
   username = "root"
-  password = "soY!2zsdIU"
+  password = "${esxi_password}"
   datacenter = "${data.vsphere_datacenter.moje_datacenter_dla_hostow.id}"
   maintenance = false
 depends_on = ["data.vsphere_datacenter.moje_datacenter_dla_hostow"]
