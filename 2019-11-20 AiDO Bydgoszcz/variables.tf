@@ -22,3 +22,16 @@ variable "esxi_password" {
   description = "Password to ESXi"
   
 }
+
+# Zmienne, których wartości są konfigurowalne:
+
+
+#variable "vm_mgt_ip" {
+#  type = "string"
+#  default = "192.168.5.101"
+# }
+
+ variable "vm_mgt_ip" {
+  type = "list"
+  default = ["192.168.5.101", "192.168.5.102"]
+ }

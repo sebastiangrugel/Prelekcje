@@ -32,7 +32,7 @@ datacenter_id = "${data.vsphere_datacenter.primary-datacenter.id}"
 
 
 resource "vsphere_virtual_machine" "vm_template" {
-count = 0
+count = 2
 name             = "VM-template_${count.index + 1}"
 resource_pool_id = "${vsphere_compute_cluster.compute_cluster_t.resource_pool_id}"
 datastore_id     = "${data.vsphere_datastore.datastore-large2.id}"
@@ -70,11 +70,11 @@ customize {
              }
 
          network_interface {
-        ipv4_address = "192.168.5.52"
-        #ipv4_address = "${var.vm_mgt_ip}"
-        ipv4_netmask = 24
+        #ipv4_address = "192.168.5.1${count.index + 1}" #jakby co to odkomentuj działa jeślie nie masz DHCP
+        #ipv4_address = "${var.vm_mgt_ip}" #zwykły string
+        #ipv4_netmask = 24 #jakby co to odkomentuj działa jeślie nie masz DHCP
       }     
-      ipv4_gateway = "192.168.5.1"
+      #ipv4_gateway = "192.168.5.1" #jakby co to odkomentuj działa jeślie nie masz DHCP
       #ipv4_gateway = "${var.vm_gw}"
       #dns_server_list = "168.168.5.2"
       #dns_server_list = ["${var.vm_dns}"]
@@ -83,7 +83,5 @@ customize {
 }
 wait_for_guest_ip_timeout = 0
 wait_for_guest_net_timeout = 0
-#shutdown_wait_timeout = 0
-#force_power_off = true
 depends_on = ["vsphere_datacenter.moje_datacenter"]
 }
