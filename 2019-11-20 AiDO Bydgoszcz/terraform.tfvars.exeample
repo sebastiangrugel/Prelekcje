@@ -1,0 +1,12 @@
+## Masz pytania ? lub potrzebujesz pomocy w projekcie ? Zachęcam do kontaktu na sebastian@akademiadatacenter.pl
+## Autor: Sebastian Grugel
+
+## =====================================
+##  Parametry połączenia do vCenter     #
+## ===================================== 
+vc_user = "administrator@vsphere.local"
+vc_pass = "SECRETPASSWORDTOVCENTER"
+vc_allow_unverified_ssl = "true"
+vc_max_retry_timeout = "10"
+vc_vsphere_server = "vcenter.domain"
+esxi_password = "SECRETPASSWORDTOESXI"

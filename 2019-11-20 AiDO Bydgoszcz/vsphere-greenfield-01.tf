@@ -2,6 +2,8 @@ variable "hosts" {
   default = ["esxi2.aido.local","esxi3.aido.local"]
     type = "list"
 }
+## Masz pytania ? lub potrzebujesz pomocy w projekcie ? Zachęcam do kontaktu na sebastian@akademiadatacenter.pl
+## Autor: Sebastian Grugel
 
 resource "vsphere_host" "host_esx02" {
   hostname = "esxi2.aido.local"

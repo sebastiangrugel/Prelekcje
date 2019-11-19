@@ -1,3 +1,6 @@
+## Masz pytania ? lub potrzebujesz pomocy w projekcie ? Zachęcam do kontaktu na sebastian@akademiadatacenter.pl
+## Autor: Sebastian Grugel
+
 #Workaround z uwagi na to że przy wykorzystaniu datacenter tworzonego przez resource niestety nie jest ten obiekt widoczny (do sprswdzenia pozniej). Zczytanie datacenter poprzez parametr data umozliwiło dodanie hostów do vCentra. Nie jest to metoda jeszcze wspierana także moze przy kolejnej wersji providera będzie to działało. 
 data "vsphere_datacenter" "moje_datacenter_dla_hostow" {
   name = "Terraform AiDO DC"

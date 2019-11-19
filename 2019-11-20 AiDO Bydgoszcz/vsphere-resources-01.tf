@@ -1,3 +1,5 @@
+## Masz pytania ? lub potrzebujesz pomocy w projekcie ? Zachęcam do kontaktu na sebastian@akademiadatacenter.pl
+## Autor: Sebastian Grugel
 
 resource "vsphere_virtual_machine" "vm" {
   name             = "AiDO-pustaMaszyna${count.index + 1}"

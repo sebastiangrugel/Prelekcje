@@ -1,3 +1,6 @@
+## Masz pytania ? lub potrzebujesz pomocy w projekcie ? Zachęcam do kontaktu na sebastian@akademiadatacenter.pl
+## Autor: Sebastian Grugel
+
 variable "vc_user" {
   description = "vCloud user"
 }
@@ -25,13 +28,9 @@ variable "esxi_password" {
 
 # Zmienne, których wartości są konfigurowalne:
 
-
 #variable "vm_mgt_ip" {
 #  type = "string"
 #  default = "192.168.5.101"
 # }
 
- variable "vm_mgt_ip" {
-  type = "list"
-  default = ["192.168.5.101", "192.168.5.102"]
  }
