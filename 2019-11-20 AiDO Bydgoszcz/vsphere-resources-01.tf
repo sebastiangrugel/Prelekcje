@@ -2,7 +2,7 @@
 ## Autor: Sebastian Grugel
 
 resource "vsphere_virtual_machine" "vm" {
-  name             = "AiDO-pustaMaszyna${count.index + 1}"
+  name             = "AiDO-pustaMaszyna-20112019${count.index + 1}"
   #resource_pool_id = "${data.vsphere_compute_cluster.compute_cluster.resource_pool_id}" # lokalizacja w klastrze poza resource pool, klaster BSB
   #datastore_id     = "${data.vsphere_datastore.datastore-large1.id}"  #host w klastrze BSB
 resource_pool_id = "${vsphere_compute_cluster.compute_cluster_t.resource_pool_id}"
